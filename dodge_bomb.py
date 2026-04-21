@@ -20,7 +20,7 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:   # 練習問題03 / 画面�
     """
     x, y = True, True
     if rct.left < 0 or WIDTH < rct.right:
-        x =  False
+        x = False
     if rct.top < 0 or HEIGHT < rct.bottom:
         y = False
     return (x, y)
@@ -139,15 +139,15 @@ def main():
         screen.blit(bb_img, bb_rct) # 練習問題02 / 爆弾表示
 
         vx, vy = calc_orientation(kk_rct, bb_rct, (vx, vy))  # 演習04 / 追従型爆弾
-        avx = vx*bb_accs[min(tmr//500, 9)]  # 演習02 / 爆弾の加速
-        avy = vy*bb_accs[min(tmr//500, 9)]
+        avx = vx * bb_accs[min(tmr//500, 9)]  # 演習02 / 爆弾の加速
+        avy = vy * bb_accs[min(tmr//500, 9)]
         bb_img = bb_imgs[min(tmr//500, 9)]
         bb_rct.move_ip(avx, avy) 
         bb_rct.width = bb_img.get_rect().width
         bb_rct.height = bb_img.get_rect().height
         bb_img.set_colorkey((0, 0, 0))
 
-        yoko , tate = check_bound(bb_rct)   # 練習問題03 / 爆弾が画面外に出たら跳ね返る
+        yoko, tate = check_bound(bb_rct)   # 練習問題03 / 爆弾が画面外に出たら跳ね返る
         if not yoko:
             vx *= -1
         if not tate:
