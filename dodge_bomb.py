@@ -26,6 +26,10 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:   # 練習問題03 / 画面�
     return (x, y)
 
 def gameover(screen: pg.Surface) -> None:   # 演習01 / ゲームオーバーを表示
+    """
+    引数：画面Surface
+    戻り値：なし
+    """
     bluck = pg.Surface((WIDTH, HEIGHT))
     pg.draw.rect(bluck, (0, 0, 0), (0, 0, WIDTH, HEIGHT))
     bluck.set_alpha(200)
@@ -40,6 +44,9 @@ def gameover(screen: pg.Surface) -> None:   # 演習01 / ゲームオーバー�
     time.sleep(5)
 
 def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]: # 演習02 / 爆弾の画像と加速のリストを作成
+    """
+    引数：なし
+    戻り値：爆弾の画像のリストと加速のリスト"""
     bb_imgs = []
     for r in range(1, 11):
         bb_img = pg.Surface((20*r, 20*r))
@@ -49,6 +56,10 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]: # 演習02 / 爆弾の
     return bb_imgs, bb_accs
 
 def get_kk_imgs() -> dict[tuple[int, int], pg.Surface]: # 演習03 / 飛ぶ方向に従ってこうかとん画像を切り替え
+    """
+    引数：なし
+    戻り値：飛ぶ方向に従ってこうかとん画像を切り替える辞書
+    """
     kk_dict = {
         (0, 0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 0.9),
         (5, 0): pg.transform.flip(pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 0.9), True, False),
@@ -63,6 +74,10 @@ def get_kk_imgs() -> dict[tuple[int, int], pg.Surface]: # 演習03 / 飛ぶ方�
     return kk_dict
 
 def calc_orientation(org: pg.Rect, dst: pg.Rect, current_xy: tuple[float, float])-> tuple[float, float]:    # 演習04 / 追従型爆弾
+    """
+    引数：爆弾のRect、こうかとんのRect、現在の爆弾の速度
+    戻り値：新しい爆弾の速度
+    """
     dx = dst.centerx - org.centerx
     dy = dst.centery - org.centery
     current_norm = (dx**2 + dy**2) ** 0.5
@@ -73,7 +88,6 @@ def calc_orientation(org: pg.Rect, dst: pg.Rect, current_xy: tuple[float, float]
     if current_norm < 300:
         return current_xy
     return v_new
-
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
