@@ -30,7 +30,7 @@ def gameover(screen: pg.Surface) -> None:   # 演習01 / ゲームオーバー�
     pg.draw.rect(bluck, (0, 0, 0), (0, 0, WIDTH, HEIGHT))
     bluck.set_alpha(200)
     fonto = pg.font.Font(None, 70)
-    text = fonto.render("Game Over", True, (255, 225, 225))
+    text = fonto.render("Game Over", True, (255, 0, 0))
     bluck.blit(text, (WIDTH//2 - text.get_width()//2, HEIGHT//2 - text.get_height()//2))
     kk_img_2 = pg.transform.rotozoom(pg.image.load("fig/8.png"), 0, 0.9)
     bluck.blit(kk_img_2, (WIDTH//2 - text.get_width()//2 - 60, HEIGHT//2 - text.get_height() + 20//2))
@@ -125,9 +125,9 @@ def main():
         screen.blit(bb_img, bb_rct) # 練習問題02 / 爆弾表示
 
         vx, vy = calc_orientation(kk_rct, bb_rct, (vx, vy))  # 演習04 / 追従型爆弾
-        avx = vx*bb_accs[tmr//250]  # 演習02 / 爆弾の加速
-        avy = vy*bb_accs[tmr//250]
-        bb_img = bb_imgs[min(tmr//100, 9)]
+        avx = vx*bb_accs[min(tmr//500, 9)]  # 演習02 / 爆弾の加速
+        avy = vy*bb_accs[min(tmr//500, 9)]
+        bb_img = bb_imgs[min(tmr//500, 9)]
         bb_rct.move_ip(avx, avy) 
         bb_rct.width = bb_img.get_rect().width
         bb_rct.height = bb_img.get_rect().height
